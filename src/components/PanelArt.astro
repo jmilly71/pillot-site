@@ -2,11 +2,11 @@
 const { kind } = Astro.props;
 
 const shots = {
-  scan: { src: '/screens/feat-scan.jpg', alt: 'Pillot reading a scanned prescription bottle into a digital label', dark: true },
-  notif: { src: '/screens/feat-routine.jpg', alt: 'The daily schedule with scheduled and as-needed medications' },
-  hold: { src: '/screens/feat-taken.jpg', alt: 'A dose marked taken with an undo option' },
-  prn: { src: '/screens/feat-times.jpg', alt: 'Editing the reminder times for a medication', contain: true },
-  week: { src: '/screens/feat-history.jpg', alt: 'The History view filtered by all, taken, missed, and as-needed' },
+  scan: { src: '/screens/feat-scan.png', alt: 'Pillot reading a scanned prescription bottle into a digital label', dark: true },
+  notif: { src: '/screens/feat-routine.png', alt: 'The daily schedule with scheduled and as-needed medications' },
+  hold: { src: '/screens/feat-taken.png', alt: 'A dose marked taken with an undo option' },
+  prn: { src: '/screens/feat-times.png', alt: 'Editing the reminder times for a medication', contain: true },
+  week: { src: '/screens/feat-history.png', alt: 'The History view filtered by all, taken, missed, and as-needed' },
 };
 
 const shot = shots[kind] ?? shots.scan;
