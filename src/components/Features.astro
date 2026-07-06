@@ -107,14 +107,49 @@ const items = [
       acc.style.minHeight = `${base + Math.max(...heights)}px`;
     };
 
-    const activate = (n: number) => {
+    const openBody = (body: HTMLElement, animate: boolean) => {
+      if (!animate) {
+        // Content-sized, so it can never clip its last line after fonts reflow.
+        body.style.maxHeight = 'none';
+        return;
+      }
+      body.style.maxHeight = `${body.scrollHeight}px`;
+      const onEnd = (e: TransitionEvent) => {
+        if (e.propertyName !== 'max-height') return;
+        body.removeEventListener('transitionend', onEnd);
+        if (body.style.maxHeight !== '0px') body.style.maxHeight = 'none';
+      };
+      body.addEventListener('transitionend', onEnd);
+    };
+
+    const closeBody = (body: HTMLElement, animate: boolean) => {
+      if (!animate) {
+        body.style.maxHeight = '0px';
+        return;
+      }
+      // If it's content-sized, pin to a pixel height so it can animate down.
+      if (body.style.maxHeight === 'none' || body.style.maxHeight === '') {
+        body.style.maxHeight = `${body.scrollHeight}px`;
+        void body.offsetHeight;
+      }
+      body.style.maxHeight = '0px';
+    };
+
+    const activate = (n: number, animate = true) => {
       heads.forEach((head, i) => {
-        head.setAttribute('aria-expanded', i === n ? 'true' : 'false');
-        bodies[i].style.maxHeight = i === n ? `${bodies[i].scrollHeight}px` : '0px';
+        const isOpen = i === n;
+        head.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (isOpen) openBody(bodies[i], animate);
+        else closeBody(bodies[i], animate);
       });
       panels.forEach((panel, i) => {
         panel.classList.toggle('active', i === n);
       });
+    };
+
+    const currentIndex = () => {
+      const c = heads.findIndex((h) => h.getAttribute('aria-expanded') === 'true');
+      return c === -1 ? 0 : c;
     };
 
     heads.forEach((head, i) => {
@@ -129,15 +164,23 @@ const items = [
     });
 
     lockHeight();
-    activate(0);
+    activate(0, false);
+
+    // Web fonts reflow the text taller after first paint; recompute so the
+    // open panel fits and the panel-height lock matches final metrics.
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(() => {
+        lockHeight();
+        activate(currentIndex(), false);
+      });
+    }
 
     let resizeTimer: number | undefined;
     window.addEventListener('resize', () => {
       window.clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(() => {
         lockHeight();
-        const current = heads.findIndex((h) => h.getAttribute('aria-expanded') === 'true');
-        activate(current === -1 ? 0 : current);
+        activate(currentIndex(), false);
       }, 150);
     });
   }
