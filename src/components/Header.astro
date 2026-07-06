@@ -21,6 +21,22 @@ const ctaText = LAUNCH_STATE === 'live' ? 'Get the app' : 'Get notified';
   </div>
 </header>
 
+<script>
+  const cta = document.querySelector<HTMLAnchorElement>('header .cta');
+  if (cta && cta.getAttribute('href')?.endsWith('#notify')) {
+    cta.addEventListener('click', (e) => {
+      const section = document.getElementById('notify');
+      if (!section) return;
+      // On the homepage, handle the jump ourselves: the browser's own anchor
+      // navigation resets focus to <body>, undoing the input focus.
+      e.preventDefault();
+      history.pushState(null, '', '/#notify');
+      section.scrollIntoView({ block: 'start' });
+      section.querySelector<HTMLInputElement>('input[type="email"]')?.focus({ preventScroll: true });
+    });
+  }
+</script>
+
 <style>
   header {
     position: sticky;

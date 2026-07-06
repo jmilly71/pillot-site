@@ -78,6 +78,10 @@ const uid = `capture-${Math.random().toString(36).slice(2, 8)}`;
     font-size: 13px;
   }
 
+  .capture-form[hidden] {
+    display: none;
+  }
+
   .capture-form {
     display: inline-flex;
     align-items: center;
@@ -148,7 +152,7 @@ const uid = `capture-${Math.random().toString(36).slice(2, 8)}`;
   }
 
   @media (max-width: 480px) {
-    .capture-form {
+    .capture-form:not([hidden]) {
       display: flex;
     }
 
