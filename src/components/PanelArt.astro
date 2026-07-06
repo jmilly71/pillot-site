@@ -13,7 +13,7 @@ const shot = shots[kind] ?? shots.scan;
 ---
 <div class:list={['art', { 'art-dark': shot.dark, 'art-contain': shot.contain }]}>
   <div class="shot">
-    <img src={shot.src} alt={shot.alt} width="820" height="1682" loading="lazy" />
+    <img src={shot.src} alt={shot.alt} width="820" height="1682" loading="eager" decoding="async" />
   </div>
 </div>
 
