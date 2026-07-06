@@ -1,0 +1,75 @@
+---
+import Mark from './Mark.astro';
+import { LAUNCH_STATE, APP_STORE_URL } from '../config';
+
+const ctaHref = LAUNCH_STATE === 'live' && APP_STORE_URL ? APP_STORE_URL : '/#notify';
+const ctaText = LAUNCH_STATE === 'live' ? 'Get the app' : 'Get notified';
+---
+<header>
+  <div class="container bar">
+    <a href="/" class="brand">
+      <Mark size={24} />
+      <span>Pillot</span>
+    </a>
+    <nav aria-label="Main">
+      <a href="/#features">Features</a>
+      <a href="/#privacy">Privacy</a>
+      <a href="/#faqs">FAQs</a>
+      <a href="/support">Support</a>
+    </nav>
+    <a href={ctaHref} class="pill pill--ink cta">{ctaText}</a>
+  </div>
+</header>
+
+<style>
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--paper) 72%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding-block: 16px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-serif);
+    font-size: 23px;
+    margin-right: auto;
+  }
+
+  nav {
+    display: flex;
+    gap: 22px;
+    font-size: 14px;
+  }
+
+  nav a {
+    color: var(--muted);
+  }
+
+  nav a:hover,
+  nav a:first-child {
+    color: var(--ink);
+  }
+
+  .cta {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+
+  @media (max-width: 640px) {
+    nav {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,273 @@
+---
+import PanelArt from './PanelArt.astro';
+
+const items = [
+  {
+    n: '01',
+    title: 'Snap a photo. Pillot does the rest.',
+    body: 'A prescription, an as-needed med, or a supplement: Pillot reads it and builds a clean digital label, no typing.',
+    kind: 'scan',
+  },
+  {
+    n: '02',
+    title: 'Never miss a dose',
+    body: "Reminders that actually show up, at times you choose. One hold takes everything that's due.",
+    kind: 'notif',
+  },
+  {
+    n: '03',
+    title: 'Log a dose in one motion',
+    body: 'Hold to mark a dose taken, with an easy undo. Missed one? Take it, mark it, or skip it. Your history stays honest.',
+    kind: 'hold',
+  },
+  {
+    n: '04',
+    title: 'Designed around your routine',
+    body: 'Set up your routine once and you always know what to take and when. As-needed meds log in a tap, and warnings arrive before a bottle runs low.',
+    kind: 'prn',
+  },
+  {
+    n: '05',
+    title: 'See the whole picture',
+    body: 'History shows your progress week by week. Sort it by taken, missed, or as-needed to spot patterns.',
+    kind: 'week',
+  },
+];
+---
+<section id="features" class="container">
+  <div class="sec-head">
+    <p>Why use Pillot?</p>
+  </div>
+  <div class="grid">
+    <div class="acc">
+      {
+        items.map((item, i) => (
+          <div class="item">
+            <button
+              type="button"
+              class="head"
+              aria-expanded={i === 0 ? 'true' : 'false'}
+              aria-controls={`feature-body-${i}`}
+            >
+              <span class="num">{item.n}</span>
+              <span class="title">{item.title}</span>
+              <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            </button>
+            <div class="body" id={`feature-body-${i}`}>
+              <p>{item.body}</p>
+              <div class="mini">
+                <PanelArt kind={item.kind} />
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="panels" aria-hidden="true">
+      {
+        items.map((item) => (
+          <div class="panel">
+            <PanelArt kind={item.kind} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.getElementById('features');
+  if (root) {
+    const acc = root.querySelector<HTMLElement>('.acc');
+    const heads = Array.from(root.querySelectorAll<HTMLButtonElement>('.head'));
+    const bodies = Array.from(root.querySelectorAll<HTMLElement>('.body'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('.panel'));
+    let hoverTimer: number | undefined;
+    let lastPointerMove = 0;
+
+    // Scrolling slides items under a stationary cursor and fires mouseenter
+    // without any pointer movement; only real movement counts as intent.
+    document.addEventListener(
+      'mousemove',
+      () => {
+        lastPointerMove = Date.now();
+      },
+      { passive: true }
+    );
+
+    const lockHeight = () => {
+      if (!acc) return;
+      acc.style.minHeight = '';
+      // On mobile the panel renders inline per item, so content just flows.
+      if (window.matchMedia('(max-width: 760px)').matches) return;
+      const heights = bodies.map((b) => b.scrollHeight);
+      const open = bodies.reduce((sum, b) => sum + b.offsetHeight, 0);
+      const base = acc.offsetHeight - open;
+      acc.style.minHeight = `${base + Math.max(...heights)}px`;
+    };
+
+    const activate = (n: number) => {
+      heads.forEach((head, i) => {
+        head.setAttribute('aria-expanded', i === n ? 'true' : 'false');
+        bodies[i].style.maxHeight = i === n ? `${bodies[i].scrollHeight}px` : '0px';
+      });
+      panels.forEach((panel, i) => {
+        panel.classList.toggle('active', i === n);
+      });
+    };
+
+    heads.forEach((head, i) => {
+      head.addEventListener('click', () => activate(i));
+      head.addEventListener('focus', () => activate(i));
+      head.addEventListener('mouseenter', () => {
+        if (Date.now() - lastPointerMove > 200) return;
+        window.clearTimeout(hoverTimer);
+        hoverTimer = window.setTimeout(() => activate(i), 120);
+      });
+      head.addEventListener('mouseleave', () => window.clearTimeout(hoverTimer));
+    });
+
+    lockHeight();
+    activate(0);
+
+    let resizeTimer: number | undefined;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        lockHeight();
+        const current = heads.findIndex((h) => h.getAttribute('aria-expanded') === 'true');
+        activate(current === -1 ? 0 : current);
+      }, 150);
+    });
+  }
+</script>
+
+<style>
+  section {
+    padding-top: 44px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 36px;
+    padding-top: 28px;
+  }
+
+  .item {
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .item:last-child {
+    border-bottom: 0;
+  }
+
+  .head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 0;
+    padding: 18px 0 12px;
+    cursor: pointer;
+  }
+
+  .num {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    color: var(--terracotta);
+  }
+
+  .title {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    flex: 1;
+  }
+
+  .chev {
+    color: var(--muted);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    align-self: center;
+  }
+
+  .head[aria-expanded='true'] .chev {
+    transform: rotate(90deg);
+  }
+
+  .body {
+    overflow: hidden;
+    max-height: none;
+    transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .body p {
+    color: var(--body);
+    font-size: 15px;
+    padding: 0 0 18px 33px;
+    max-width: 44ch;
+  }
+
+  .mini {
+    display: none;
+  }
+
+  .panels {
+    position: relative;
+    height: 100%;
+  }
+
+  .panel {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 0.45s;
+    transform: scale(0.985);
+  }
+
+  .panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition:
+      opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .panel :global(.art) {
+    height: 100%;
+  }
+
+  @media (max-width: 760px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding-top: 16px;
+    }
+
+    .panels {
+      display: none;
+    }
+
+    .mini {
+      display: block;
+      margin: 0 0 20px 33px;
+    }
+
+    .mini :global(.art) {
+      height: 340px;
+      min-height: 0;
+      padding: 18px 18px 0;
+    }
+
+    .mini :global(.art-contain) {
+      padding: 18px;
+    }
+  }
+</style>

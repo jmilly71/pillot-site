@@ -1,0 +1,109 @@
+---
+import CtaSlot from './CtaSlot.astro';
+---
+<section class="hero container" id="notify">
+  <div class="copy">
+    <p class="eyebrow">Coming soon</p>
+    <h1>A private pillbox that fills itself.</h1>
+    <p class="subline">
+      Snap a photo of a bottle and Pillot does the rest: it reads the label, builds your
+      schedule, and reminds you on time. No account, and your meds stay on your phone.
+    </p>
+    <CtaSlot label="Get notified when Pillot launches on iPhone" />
+  </div>
+  <figure class="stage">
+    <div class="device">
+      <div class="rings" aria-hidden="true"></div>
+      <img
+        src="/screens/schedule.png"
+        alt="The Pillot schedule screen showing the week, a dose marked taken, and an as-needed medication"
+        width="1320"
+        height="2868"
+        loading="eager"
+      />
+    </div>
+  </figure>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 32px;
+    align-items: start;
+    padding-block: 56px 24px;
+  }
+
+  .copy {
+    padding-top: 96px;
+  }
+
+  .eyebrow {
+    color: var(--body);
+  }
+
+  h1 {
+    font-size: clamp(34px, 5vw, 52px);
+    margin-block: 14px 18px;
+    max-width: 13ch;
+    color: var(--terracotta);
+  }
+
+  .subline {
+    color: var(--body);
+    max-width: 40ch;
+    margin-bottom: 28px;
+  }
+
+  .stage {
+    position: relative;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .rings {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    translate: -50% -50%;
+    width: 1000px;
+    aspect-ratio: 1;
+    background: url('/screens/pills-rings.jpg') center / contain no-repeat;
+    opacity: 0.2;
+    -webkit-mask-image: radial-gradient(circle closest-side, #000 35%, transparent 80%);
+    mask-image: radial-gradient(circle closest-side, #000 35%, transparent 80%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .device {
+    position: relative;
+    width: min(290px, 74%);
+    border-radius: 54px;
+    background: #0d0d0f;
+    padding: 10px;
+    border: 3px solid #48484f;
+    box-shadow: 0 30px 60px -30px rgba(26, 26, 26, 0.4);
+  }
+
+  .device img {
+    width: 100%;
+    height: auto;
+    border-radius: 42px;
+  }
+
+  @media (max-width: 760px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding-block: 40px 8px;
+    }
+
+    .copy {
+      padding-top: 0;
+    }
+
+    h1 {
+      max-width: none;
+    }
+  }
+</style>

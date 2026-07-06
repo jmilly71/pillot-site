@@ -1,0 +1,183 @@
+---
+const faqs = [
+  {
+    q: 'Do I need an account, and does my data leave my phone?',
+    a: 'No account, nothing to sign up for, nothing to remember. Every medication and every schedule stays on your phone. The one exception is the label photo itself, sent briefly over an encrypted connection to be read, then discarded.',
+  },
+  {
+    q: "What happens if a label won't scan?",
+    a: "Retake the photo, or enter the medication by hand. Manual entry gets the same schedule and reminder features as a scanned one, it's just typed instead of photographed.",
+  },
+  {
+    q: 'What happens if I miss a dose?',
+    a: 'Pillot asks what actually happened: take it now, mark it already taken, or skip it. Nothing is assumed, and nothing is held against you.',
+  },
+  {
+    q: 'Can I see how it works before adding my own medications?',
+    a: 'Yes. Demo Mode walks through the whole flow with a sample bottle, so you can see scanning, scheduling, and reminders before you commit to your own.',
+  },
+  {
+    q: 'Does Pillot identify pills or check for drug interactions?',
+    a: "No. Pillot reminds you and records what you tell it. It doesn't identify an unknown pill and it doesn't screen for interactions between medications. For either of those, talk to your pharmacist.",
+  },
+  {
+    q: 'How much does Pillot cost?',
+    a: 'Pillot runs on a small subscription. It keeps the label-reading AI running and funds ongoing updates, improvements, and support as your phone and your needs change. Pricing and plan details are shown in the App Store before you subscribe.',
+  },
+  {
+    q: 'Is Pillot available on Android?',
+    a: "Not yet. Pillot will launch on iPhone first, with Android planned for a later release. If you primarily use Android, you may want to join the waitlist so we can let you know as soon as it's ready.",
+  },
+];
+---
+<section id="faqs" class="container">
+  <div class="sec-head">
+    <p>FAQs</p>
+  </div>
+  {
+    faqs.map((faq) => (
+      <details name="faq">
+        <summary>
+          <span class="q">{faq.q}</span>
+          <span class="mark" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-body">
+          <p class="a">{faq.a}</p>
+        </div>
+      </details>
+    ))
+  }
+</section>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const items = Array.from(document.querySelectorAll<HTMLDetailsElement>('#faqs details'));
+  const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+
+  const collapse = (d: HTMLDetailsElement) => {
+    const body = d.querySelector<HTMLElement>('.faq-body');
+    if (!body) return;
+    if (reduceMotion) {
+      d.open = false;
+      return;
+    }
+    body.style.height = `${body.scrollHeight}px`;
+    body.style.overflow = 'hidden';
+    requestAnimationFrame(() => {
+      body.style.transition = `height 0.35s ${EASE}, opacity 0.35s ${EASE}`;
+      body.style.height = '0px';
+      body.style.opacity = '0';
+      body.addEventListener(
+        'transitionend',
+        () => {
+          d.open = false;
+          body.style.cssText = '';
+        },
+        { once: true }
+      );
+    });
+  };
+
+  const expand = (d: HTMLDetailsElement) => {
+    d.open = true;
+    const body = d.querySelector<HTMLElement>('.faq-body');
+    if (!body || reduceMotion) return;
+    const target = body.scrollHeight;
+    body.style.height = '0px';
+    body.style.opacity = '0';
+    body.style.overflow = 'hidden';
+    requestAnimationFrame(() => {
+      body.style.transition = `height 0.45s ${EASE}, opacity 0.45s ${EASE}`;
+      body.style.height = `${target}px`;
+      body.style.opacity = '1';
+      body.addEventListener(
+        'transitionend',
+        () => {
+          body.style.cssText = '';
+        },
+        { once: true }
+      );
+    });
+  };
+
+  items.forEach((d) => {
+    const summary = d.querySelector('summary');
+    if (!summary) return;
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (d.open) {
+        collapse(d);
+      } else {
+        items.filter((o) => o !== d && o.open).forEach(collapse);
+        expand(d);
+      }
+    });
+  });
+</script>
+
+<style>
+  section {
+    padding-top: 44px;
+  }
+
+  details {
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  details:last-of-type {
+    border-bottom: 0;
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-block: 16px;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .q {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    flex: 1;
+  }
+
+  .mark {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  .mark::before,
+  .mark::after {
+    content: '';
+    position: absolute;
+    background: var(--terracotta);
+    transition: transform 0.2s ease;
+  }
+
+  .mark::before {
+    inset: 6px 0;
+  }
+
+  .mark::after {
+    inset: 0 6px;
+  }
+
+  details[open] .mark::after {
+    transform: scaleY(0);
+  }
+
+  .a {
+    color: var(--body);
+    font-size: 15px;
+    max-width: 58ch;
+    padding-bottom: 18px;
+  }
+</style>

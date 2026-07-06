@@ -1,0 +1,21 @@
+---
+import { LAUNCH_STATE, APP_STORE_URL } from '../config';
+import EmailCapture from './EmailCapture.astro';
+
+const { label = 'Get notified when Pillot launches', compact = false } = Astro.props;
+---
+{
+  LAUNCH_STATE === 'prelaunch' ? (
+    <EmailCapture label={label} compact={compact} />
+  ) : (
+    <a class="badge" href={APP_STORE_URL}>
+      <img src="/appstore-badge.svg" alt="Download on the App Store" width="150" height="50" />
+    </a>
+  )
+}
+
+<style>
+  .badge {
+    display: inline-block;
+  }
+</style>

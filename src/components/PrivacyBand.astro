@@ -1,0 +1,70 @@
+---
+---
+<section id="privacy" class="band">
+  <div class="container">
+    <div class="head">
+      <p>Privacy</p>
+    </div>
+    <div class="grid">
+      <h2>Everything lives on your phone.</h2>
+      <div class="text">
+        <p>There's no account and no sign-up. Every medication, every schedule, every dose you log stays on your phone.</p>
+        <p>The one exception: when you scan a label, that photo travels over an encrypted connection just long enough to be read. Once it's turned into your digital label, the photo is discarded and our server keeps nothing.</p>
+        <p class="strong">That's the whole story. No analytics, no trackers, no data to sell, because we don't have any to begin with.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .band {
+    background: var(--slate);
+    color: var(--paper);
+    margin-top: 52px;
+    padding-block: 40px 48px;
+  }
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--slate-line);
+    padding-bottom: 10px;
+    margin-bottom: 26px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 40px;
+  }
+
+  h2 {
+    font-size: clamp(26px, 3.4vw, 34px);
+    max-width: 15ch;
+    color: var(--terracotta);
+  }
+
+  .text p {
+    color: var(--slate-text);
+    margin-bottom: 14px;
+    max-width: 56ch;
+  }
+
+  .text p.strong {
+    color: var(--paper);
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 760px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    h2 {
+      max-width: none;
+    }
+  }
+</style>
