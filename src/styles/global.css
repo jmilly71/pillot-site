@@ -80,6 +80,7 @@ img {
 button,
 input {
   font: inherit;
+  color: inherit;
 }
 
 .container {
