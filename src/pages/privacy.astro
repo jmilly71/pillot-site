@@ -13,7 +13,7 @@ import { SUPPORT_EMAIL } from '../config';
     <p>Every medication you add, your schedule, your reminders, your dose history, and your notes are stored locally on your iPhone. We don't have a server that holds this information, and we can't see it, because it never reaches us.</p>
 
     <h2>The one thing that briefly leaves your phone</h2>
-    <p>When you scan a prescription label, Pillot sends a photo of that label over an encrypted connection so it can be read and turned into a digital label. That photo is used only for that purpose. Once the label is read, the photo is discarded. We do not retain label photos on our servers, and we do not use them for anything other than reading the label you scanned.</p>
+    <p>When you scan a prescription label, Pillot sends a photo of that label over an encrypted connection to a third-party AI service, Anthropic's Claude, which reads it and turns it into a digital label. That photo is used only for that purpose, and it is not used to train any AI models. Once the label is read, the photo is discarded. We do not retain label photos on our servers, and we do not use them for anything other than reading the label you scanned.</p>
 
     <h2>Accounts</h2>
     <p>Pillot doesn't have accounts. There's nothing to sign up for, no username or password, and no profile tied to your identity anywhere in our systems.</p>
