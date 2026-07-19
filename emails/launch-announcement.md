@@ -13,7 +13,7 @@ Markdown body. Fill [APP STORE URL] before sending.
 
 Thanks for waiting. Pillot is live on the App Store.
 
-Photograph a prescription bottle and Pillot reads the label, builds your schedule, and reminds you on time. No account, and everything stays on your phone.
+Photograph a prescription bottle and Pillot reads the label, builds your schedule, and reminds you on time. No account, and your meds never reach our servers.
 
 [Get Pillot on the App Store]([APP STORE URL])
 
