@@ -14,7 +14,7 @@ const isHome = path === '/';
 // link up, so a standalone page never highlights the wrong item.
 const links = [
   { href: '/#features', label: 'Features', section: 'features' },
-  { href: '/#privacy', label: 'Privacy', section: 'privacy', page: '/privacy' },
+  { href: '/privacy', label: 'Privacy', section: 'privacy', page: '/privacy' },
   { href: '/#faqs', label: 'FAQs', section: 'faqs' },
   { href: '/support', label: 'Support', page: '/support' },
 ];
@@ -82,8 +82,11 @@ const links = [
         }
         // The last section sits too close to the bottom to ever reach the
         // threshold, so once we've hit the end of the page it's the one showing.
+        // Guard on the page actually being scrollable: before images load the
+        // document is short, and an unguarded check reads as "at the bottom".
         const doc = document.documentElement;
-        if (window.innerHeight + window.scrollY >= doc.scrollHeight - 4) {
+        const scrollable = doc.scrollHeight - window.innerHeight > 4;
+        if (scrollable && window.innerHeight + window.scrollY >= doc.scrollHeight - 4) {
           current = spied[spied.length - 1].link;
         }
         spyLinks.forEach((link) => {
@@ -106,6 +109,9 @@ const links = [
 
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll, { passive: true });
+      // Images settle after first paint and change the page height, so re-sync
+      // once everything has loaded.
+      window.addEventListener('load', onScroll);
       sync();
     }
   }
