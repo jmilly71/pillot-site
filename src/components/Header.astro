@@ -4,6 +4,20 @@ import { LAUNCH_STATE, APP_STORE_URL } from '../config';
 
 const ctaHref = LAUNCH_STATE === 'live' && APP_STORE_URL ? APP_STORE_URL : '/#notify';
 const ctaText = LAUNCH_STATE === 'live' ? 'Get the app' : 'Get notified';
+
+// Normalise so /privacy and /privacy/ compare the same.
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHome = path === '/';
+
+// Features, Privacy and FAQs are sections on the home page (scroll-spied below).
+// Support is its own page. `page` marks which standalone page should light the
+// link up, so a standalone page never highlights the wrong item.
+const links = [
+  { href: '/#features', label: 'Features', section: 'features' },
+  { href: '/#privacy', label: 'Privacy', section: 'privacy', page: '/privacy' },
+  { href: '/#faqs', label: 'FAQs', section: 'faqs' },
+  { href: '/support', label: 'Support', page: '/support' },
+];
 ---
 <header>
   <div class="container bar">
@@ -12,10 +26,21 @@ const ctaText = LAUNCH_STATE === 'live' ? 'Get the app' : 'Get notified';
       <span>Pillot</span>
     </a>
     <nav aria-label="Main">
-      <a href="/#features">Features</a>
-      <a href="/#privacy">Privacy</a>
-      <a href="/#faqs">FAQs</a>
-      <a href="/support">Support</a>
+      {
+        links.map((link) => {
+          const isCurrent = !isHome && link.page === path;
+          return (
+            <a
+              href={link.href}
+              class:list={{ active: isCurrent }}
+              data-section={link.section}
+              aria-current={isCurrent ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          );
+        })
+      }
     </nav>
     <a href={ctaHref} class="pill pill--ink cta">{ctaText}</a>
   </div>
@@ -34,6 +59,55 @@ const ctaText = LAUNCH_STATE === 'live' ? 'Get the app' : 'Get notified';
       section.scrollIntoView({ block: 'start' });
       section.querySelector<HTMLInputElement>('input[type="email"]')?.focus({ preventScroll: true });
     });
+  }
+
+  // Scroll-spy: on the home page, light up whichever section you're reading.
+  const nav = document.querySelector('header nav');
+  if (nav) {
+    const spyLinks = Array.from(nav.querySelectorAll<HTMLAnchorElement>('a[data-section]'));
+    const spied = spyLinks
+      .map((link) => ({ link, el: document.getElementById(link.dataset.section ?? '') }))
+      .filter((s): s is { link: HTMLAnchorElement; el: HTMLElement } => s.el !== null);
+
+    if (spied.length) {
+      const header = document.querySelector<HTMLElement>('header');
+
+      const sync = () => {
+        // The current section is the last one whose top has passed just under
+        // the sticky header. Above them all (the hero), nothing is active.
+        const threshold = (header?.offsetHeight ?? 0) + 24;
+        let current: HTMLAnchorElement | null = null;
+        for (const s of spied) {
+          if (s.el.getBoundingClientRect().top <= threshold) current = s.link;
+        }
+        // The last section sits too close to the bottom to ever reach the
+        // threshold, so once we've hit the end of the page it's the one showing.
+        const doc = document.documentElement;
+        if (window.innerHeight + window.scrollY >= doc.scrollHeight - 4) {
+          current = spied[spied.length - 1].link;
+        }
+        spyLinks.forEach((link) => {
+          const on = link === current;
+          link.classList.toggle('active', on);
+          if (on) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+      };
+
+      let ticking = false;
+      const onScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          sync();
+          ticking = false;
+        });
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      sync();
+    }
   }
 </script>
 
@@ -71,10 +145,11 @@ const ctaText = LAUNCH_STATE === 'live' ? 'Get the app' : 'Get notified';
 
   nav a {
     color: var(--muted);
+    transition: color 0.2s ease;
   }
 
   nav a:hover,
-  nav a:first-child {
+  nav a.active {
     color: var(--ink);
   }
 
