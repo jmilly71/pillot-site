@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import { SUPPORT_EMAIL } from '../config';
+---
+<Base title="Terms of use · Pillot" description="The terms you agree to when you use Pillot.">
+  <article class="container prose">
+    <h1>Terms of use</h1>
+    <p class="effective">Effective date: July 19, 2026</p>
+
+    <p>These terms cover your use of Pillot, an iPhone app for tracking the medications you take. By downloading or using Pillot, you agree to them. If you don't agree, please don't use the app.</p>
+
+    <h2>Pillot is not medical advice</h2>
+    <p>This is the most important thing on this page. Pillot reminds and records. It does not diagnose, dose, or give medical advice. It does not identify unknown pills and it does not check for interactions between medications. Never use Pillot as a substitute for the guidance of your doctor or pharmacist, and never change how you take a medication because of something Pillot showed you. Always follow the directions on your prescription and from your care team.</p>
+    <p>You are responsible for what you enter and for what you take. Scanning is convenient, but it can misread a label, so check that every medication, dose, and time is correct before you rely on it. Reminders depend on your device, its settings, and its battery, and may not always be delivered. Do not rely on Pillot as your only safeguard for taking a medication.</p>
+
+    <h2>Your licence to use Pillot</h2>
+    <p>We give you a personal, non-transferable licence to use Pillot on devices you own or control, for your own use. You may not resell it, rent it out, reverse engineer it, or try to extract its source code, except where the law says you may do so regardless of this agreement.</p>
+
+    <h2>Subscriptions and billing</h2>
+    <p>Pillot is supported by a subscription. Pricing, the length of any free trial, and renewal terms are shown in the App Store before you buy, and those are the terms that apply to your purchase.</p>
+    <p>All payments are handled by Apple through your App Store account. We never see or store your payment details. Subscriptions renew automatically unless you cancel at least 24 hours before the current period ends, and your account is charged for renewal within 24 hours of the period ending.</p>
+    <p>You manage or cancel your subscription in your Apple account settings, not in Pillot. Cancelling stops future renewals; it does not retroactively refund the current period. Refunds are handled by Apple under their policies, so please request them through Apple.</p>
+
+    <h2>Your data</h2>
+    <p>Your medications, schedules, and history are stored on your device, and in your own encrypted Apple backup if you use iCloud Backup. We don't hold them. The one thing that leaves your device is a label photo you choose to scan, which is read and then discarded. Our <a href="/privacy">privacy policy</a> explains this in full.</p>
+    <p>Because your data lives on your device, it is yours to look after. Deleting the app deletes its data. We cannot recover it for you.</p>
+
+    <h2>Acceptable use</h2>
+    <p>Use Pillot lawfully and for its intended purpose. Don't use it to break the law, don't interfere with or try to overload the service that reads label photos, and don't attempt to access parts of it you haven't been granted access to.</p>
+
+    <h2>Availability and changes</h2>
+    <p>We may update, change, or discontinue features, including the label-reading service, and we may stop supporting older versions of the app or of iOS. We'll try not to break things you depend on, but we can't promise the app or any particular feature will always be available or uninterrupted.</p>
+
+    <h2>No warranty</h2>
+    <p>Pillot is provided "as is" and "as available", without warranties of any kind, whether express or implied, including any implied warranties of merchantability, fitness for a particular purpose, or non-infringement. We do not warrant that the app will be error-free, that scanning will be accurate, or that reminders will always be delivered on time.</p>
+
+    <h2>Limitation of liability</h2>
+    <p>To the fullest extent permitted by law, we are not liable for any indirect, incidental, special, or consequential damages, or for any loss of data, arising out of your use of Pillot. To the fullest extent permitted by law, our total liability relating to Pillot will not exceed the amount you paid for it in the twelve months before the claim.</p>
+    <p>Some places don't allow certain limitations of liability or exclusions of warranty, so parts of the two sections above may not apply to you. Nothing here limits any liability that cannot lawfully be limited, including for death or personal injury caused by negligence.</p>
+
+    <h2>Ending these terms</h2>
+    <p>You can end this agreement at any time by deleting Pillot from your devices. We may suspend or end your access if you materially breach these terms. The sections on medical advice, warranties, and liability continue to apply afterwards.</p>
+
+    <h2>Apple</h2>
+    <p>Apple is not a party to these terms and is not responsible for Pillot. Apple has no obligation to provide support for the app. If the app fails to conform to any applicable warranty, you may notify Apple, and Apple may refund the purchase price; to the maximum extent permitted by law, Apple has no other warranty obligation with respect to the app. Apple and its subsidiaries are third-party beneficiaries of these terms and may enforce them against you.</p>
+
+    <h2>Changes to these terms</h2>
+    <p>If these terms change, we'll update the effective date above. Material changes will be reflected here before they take effect, and continuing to use Pillot after that means you accept the updated terms.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about these terms can be sent to <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.</p>
+  </article>
+</Base>
+
+<style>
+  article {
+    padding-block: 48px 24px;
+  }
+
+  .effective {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 2em;
+  }
+</style>
