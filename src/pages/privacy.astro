@@ -13,7 +13,9 @@ import { SUPPORT_EMAIL } from '../config';
     <p>Every medication you add, your schedule, your reminders, your dose history, and your notes are stored on your device. Pillot has no server that holds this information, so it never reaches us and we cannot see it. If you use iCloud Backup, this information is included in your own encrypted Apple backup, the same as your other app data. That backup belongs to you and your Apple account, and Pillot never receives it.</p>
 
     <h2>The one thing that briefly leaves your phone</h2>
-    <p>When you scan a prescription label, Pillot sends a photo of that label over an encrypted connection to a third-party AI service, Anthropic's Claude, which reads it and turns it into a digital label. That photo is used only for that purpose, and it is not used to train any AI models. Once the label is read, the photo is discarded. We do not retain label photos on our servers, and we do not use them for anything other than reading the label you scanned.</p>
+    <p>When you scan a prescription label, Pillot sends a photo of that label over an encrypted connection to a third-party AI service, Anthropic's Claude, which reads it and turns it into a digital label. That photo is used only for that purpose, and it is not used to train any AI models. Anthropic deletes it from their systems under their commercial retention policy. We do not retain label photos on our servers, and we do not use them for anything other than reading the label you scanned.</p>
+
+    <p>Prescription labels usually show your name, so a photo you scan may contain it. Pillot does not extract, store, or use your name from a label. The medication details we do read are listed above.</p>
 
     <h2>Accounts</h2>
     <p>Pillot doesn't have accounts. There's nothing to sign up for, no username or password, and no profile tied to your identity anywhere in our systems.</p>
