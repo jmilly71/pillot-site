@@ -10,7 +10,7 @@ import { SUPPORT_EMAIL } from '../config';
     <p>Pillot is built so that your medication information stays with you. This policy explains exactly what that means.</p>
 
     <h2>What stays on your phone</h2>
-    <p>Every medication you add, your schedule, your reminders, your dose history, and your notes are stored on your device. Pillot has no server that holds this information, so it never reaches us and we cannot see it. If you use iCloud Backup, this information is included in your own encrypted Apple backup, the same as your other app data. That backup belongs to you and your Apple account, and Pillot never receives it.</p>
+    <p>Every medication you add, your schedule, your reminders, your dose history, your notes, and the photos of the labels you scan are stored on your device. Pillot has no server that holds this information, so it never reaches us and we cannot see it. If you use iCloud Backup, this information is included in your own encrypted Apple backup, the same as your other app data. That backup belongs to you and your Apple account, and Pillot never receives it.</p>
 
     <h2>The one thing that briefly leaves your phone</h2>
     <p>When you scan a prescription label, Pillot sends a photo of that label over an encrypted connection to a third-party AI service, Anthropic's Claude, which reads it and turns it into a digital label. That photo is used only for that purpose, and it is not used to train any AI models. Anthropic deletes it from their systems under their commercial retention policy. We do not retain label photos on our servers, and we do not use them for anything other than reading the label you scanned.</p>
@@ -21,7 +21,7 @@ import { SUPPORT_EMAIL } from '../config';
 
     <p>You can withdraw permission at any time. Open Settings in Pillot, go to Scanning, and turn off AI label reading. No further photos will be sent, and the next time you scan a label Pillot will ask you again before sending anything. Reading a label means sending it, so turning this off stops label scanning. Turning it off does not affect the medications, schedules, or history already on your device. Your reminders, dose history, and manual entry are unaffected.</p>
 
-    <p>To delete everything Pillot holds, open Settings, go to Data, and choose Delete all data. That removes your medications, history, and settings from your device permanently. Because Pillot has no accounts and our server stores nothing, there is no separate deletion request to make of us. To ask about a photo already processed by Anthropic, contact <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> and we will pass the request on.</p>
+    <p>To delete everything Pillot holds, open Settings, go to Data, and choose Delete all data. That removes your medications, history, settings, and label photos from your device permanently. Because Pillot has no accounts and our server stores nothing, there is no separate deletion request to make of us. To ask about a photo already processed by Anthropic, contact <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> and we will pass the request on.</p>
 
     <h2>Accounts</h2>
     <p>Pillot doesn't have accounts. There's nothing to sign up for, no username or password, and no profile tied to your identity anywhere in our systems.</p>
