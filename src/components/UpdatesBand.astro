@@ -1,0 +1,50 @@
+---
+import EmailCapture from './EmailCapture.astro';
+---
+<section class="updates" id="updates">
+  <div class="container inner">
+    <p class="eyebrow">Product updates</p>
+    <h2>Not on iPhone, or outside the US?</h2>
+    <p class="lead">
+      Pillot is on the App Store for iPhone in the United States. If that's not you yet,
+      leave your email and we'll let you know as it reaches more phones and places.
+    </p>
+    <EmailCapture
+      label=""
+      success="You're on the list. Check your inbox to confirm, and we'll email you with Pillot news."
+    />
+  </div>
+</section>
+
+<style>
+  .updates {
+    margin-top: 72px;
+  }
+
+  .inner {
+    border-top: 1px solid var(--hairline);
+    padding-top: 40px;
+    max-width: 46ch;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .lead {
+    font-size: 15px;
+    color: var(--body);
+    margin-bottom: 18px;
+  }
+</style>

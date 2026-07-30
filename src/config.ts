@@ -1,11 +1,12 @@
 export type LaunchState = 'prelaunch' | 'live';
 
 // Flip to 'live' when the App Store listing is up. Hero and footer CTAs both read this.
-export const LAUNCH_STATE: LaunchState = 'prelaunch';
+export const LAUNCH_STATE: LaunchState = 'live';
 
-// Used when LAUNCH_STATE is 'live'. Staged ahead of approval; this URL 404s
-// until Apple makes the listing public, which is why the flip waits for approval.
-export const APP_STORE_URL = 'https://apps.apple.com/app/id6788505158';
+// Used when LAUNCH_STATE is 'live'. Canonical listing URL (free download, iPhone,
+// US only, with the Pillot Premium subscription as an in-app purchase). Confirmed
+// live and reading "Free" on the storefront on 2026-07-29.
+export const APP_STORE_URL = 'https://apps.apple.com/us/app/pillot-app/id6788505158';
 
 export const SUPPORT_EMAIL = 'support@pillot.app';
 

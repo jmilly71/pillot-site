@@ -1,12 +1,16 @@
 ---
 import { EMAIL_FORM_ACTION } from '../config';
 
-const { label = 'Get notified when Pillot launches', compact = false } = Astro.props;
+const {
+  label = 'Get notified when Pillot launches',
+  compact = false,
+  success = "You're on the list. Check your inbox to confirm, and we'll email you with Pillot news.",
+} = Astro.props;
 const uid = `capture-${Math.random().toString(36).slice(2, 8)}`;
 ---
 <div class:list={['capture', { compact }]}>
   {label && <p class="capture-label">{label}</p>}
-  <form action={EMAIL_FORM_ACTION || '#'} method="post" class="capture-form" data-endpoint={EMAIL_FORM_ACTION}>
+  <form action={EMAIL_FORM_ACTION || '#'} method="post" class="capture-form" data-endpoint={EMAIL_FORM_ACTION} data-success={success}>
     <label class="sr-only" for={uid}>Email address</label>
     <input
       id={uid}
@@ -55,7 +59,7 @@ const uid = `capture-${Math.random().toString(36).slice(2, 8)}`;
           body: new FormData(form),
         });
         form.hidden = true;
-        msg.textContent = "You're on the list. Check your inbox to confirm, then we'll email you when Pillot launches.";
+        msg.textContent = form.dataset.success || "You're on the list. Check your inbox to confirm, and we'll email you with Pillot news.";
         msg.className = 'capture-msg visible success';
       } catch {
         msg.textContent = "Something went wrong. Try again in a minute.";

@@ -2,20 +2,33 @@
 import { LAUNCH_STATE, APP_STORE_URL } from '../config';
 import EmailCapture from './EmailCapture.astro';
 
-const { label = 'Get notified when Pillot launches', compact = false } = Astro.props;
+const { label = 'Get notified when Pillot launches', compact = false, availability = false } = Astro.props;
 ---
 {
   LAUNCH_STATE === 'prelaunch' ? (
     <EmailCapture label={label} compact={compact} />
   ) : (
-    <a class="badge" href={APP_STORE_URL}>
-      <img src="/appstore-badge.svg" alt="Download on the App Store" width="150" height="50" />
-    </a>
+    <div class="cta-live">
+      <a class="badge" href={APP_STORE_URL}>
+        <img src="/appstore-badge.svg" alt="Download on the App Store" width="150" height="50" />
+      </a>
+      {availability && <p class="availability">For iPhone, in the United States.</p>}
+    </div>
   )
 }
 
 <style>
   .badge {
+    /* Official Apple badge artwork, unaltered. Keep clear space around it per
+       Apple's marketing guidelines (>= 1/10 the badge height on every side). */
     display: inline-block;
+    padding: 6px;
+    margin: -6px;
+  }
+
+  .availability {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 12px;
   }
 </style>
