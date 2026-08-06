@@ -5,17 +5,17 @@ import { SUPPORT_EMAIL } from '../config';
 <Base title="Privacy policy · Pillot" description="Pillot is built so that your medication information stays with you.">
   <article class="container prose">
     <h1>Privacy policy</h1>
-    <p class="effective">Effective date: July 6, 2026</p>
+    <p class="effective">Effective date: August 5, 2026</p>
 
     <p>Pillot is built so that your medication information stays with you. This policy explains exactly what that means.</p>
 
     <h2>What stays on your phone</h2>
-    <p>Every medication you add, your schedule, your reminders, your dose history, your notes, and the photos of the labels you scan are stored on your device. Pillot has no server that holds this information, so it never reaches us and we cannot see it. If you use iCloud Backup, this information is included in your own encrypted Apple backup, the same as your other app data. That backup belongs to you and your Apple account, and Pillot never receives it.</p>
+    <p>Every medication you add, your schedule, your reminders, your dose history, your notes, and the photos of the labels you scan are stored on your device. Pillot can hold up to five people on one phone, so you can manage medications for someone you care for alongside your own. If you add someone, their name and everything filed under them is stored on your device in exactly the same way: their medications, their schedule, their reminders, and their history. Pillot has no server that holds any of this, so it never reaches us and we cannot see it. If you use iCloud Backup, this information is included in your own encrypted Apple backup, the same as your other app data. That backup belongs to you and your Apple account, and Pillot never receives it.</p>
 
     <h2>The one thing that briefly leaves your phone</h2>
-    <p>When you scan a prescription label, Pillot sends a photo of that label over an encrypted connection to a third-party AI service, Anthropic's Claude, which reads it and turns it into a digital label. That photo is used only for that purpose, and it is not used to train any AI models. Anthropic deletes it from their systems under their commercial retention policy. We do not retain label photos on our servers, and we do not use them for anything other than reading the label you scanned.</p>
+    <p>When you scan a prescription label, Pillot sends a photo of that label over an encrypted connection to a third-party AI service, Anthropic’s Claude, which reads it and turns it into a digital label. That photo is used only for that purpose, and it is not used to train any AI models. Anthropic deletes it from their systems under their commercial retention policy. We do not retain label photos on our servers, and we do not use them for anything other than reading the label you scanned.</p>
 
-    <p>Prescription labels usually show your name, so a photo you scan may contain it. Pillot does not extract, store, or use your name from a label. The medication details we do read are listed above.</p>
+    <p>Prescription labels usually show the patient’s name, so a photo you scan may contain it, whether the label is yours or belongs to someone you care for. Pillot does not extract, store, or use that name from a label. The medication details we do read are listed above.</p>
 
     <p>Anthropic processes label photos under their commercial terms, which require protection of your data equivalent to what this policy describes. They do not use the photos to train AI models, and they delete them under their commercial retention policy.</p>
 
@@ -23,23 +23,28 @@ import { SUPPORT_EMAIL } from '../config';
 
     <p>To delete everything Pillot holds, open Settings, go to Data, and choose Delete all data. That removes your medications, history, settings, and label photos from your device permanently. Because Pillot has no accounts and our server stores nothing, there is no separate deletion request to make of us. To ask about a photo already processed by Anthropic, contact <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> and we will pass the request on.</p>
 
+    <h2>People you care for</h2>
+    <p>Adding a person means recording information about someone who is not holding the phone. Add a person only if you help manage their medications, either with their knowledge or as the person responsible for their care. Pillot has no accounts and no way to reach the people you add, so we cannot ask them ourselves, and we do not. That judgment rests with you.</p>
+
+    <p>Everything you keep for someone you care for is treated exactly as your own information is treated under this policy. It stays on your device, it never reaches us, their label photos are read the same way yours are, and their name appears on their reminders on your phone. The Delete all data option removes their information along with yours.</p>
+
     <h2>Accounts</h2>
-    <p>Pillot doesn't have accounts. There's nothing to sign up for, no username or password, and no profile tied to your identity anywhere in our systems.</p>
+    <p>Pillot doesn’t have accounts. There’s nothing to sign up for, no username or password, and no profile tied to your identity anywhere in our systems.</p>
 
     <h2>Notifications</h2>
-    <p>Reminders are scheduled and delivered locally by your iPhone, using the times you set. They don't pass through our servers or anyone else's.</p>
+    <p>Reminders are scheduled and delivered locally by your iPhone, using the times you set. They don’t pass through our servers or anyone else’s.</p>
 
     <h2>Analytics and tracking</h2>
-    <p>Pillot doesn't use analytics tools, advertising identifiers, or third-party trackers. We don't know how you use the app, and we're not trying to find out.</p>
+    <p>Pillot doesn’t use analytics tools, advertising identifiers, or third-party trackers. We don’t know how you use the app, and we’re not trying to find out.</p>
 
     <h2>Data sale</h2>
-    <p>We don't sell data. We don't have any to sell.</p>
+    <p>We don’t sell data. We don’t have any to sell.</p>
 
     <h2>Children</h2>
-    <p>Pillot is not directed at children under 13, and we do not knowingly collect information from children.</p>
+    <p>Pillot is not directed at children under 13, and it is not built for children to use on their own. A parent or guardian may keep a child’s medications in Pillot as one of the people they care for. That information is handled like everyone else’s: because Pillot has no accounts and no server, it stays on the parent’s device and never reaches us, so we do not receive or hold information about a child.</p>
 
     <h2>Changes to this policy</h2>
-    <p>If this policy changes, we'll update the effective date above. Material changes will be reflected here before they take effect.</p>
+    <p>If this policy changes, we’ll update the effective date above. Material changes will be reflected here before they take effect.</p>
 
     <h2>Contact</h2>
     <p>Questions about this policy or how Pillot handles information can be sent to <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.</p>
