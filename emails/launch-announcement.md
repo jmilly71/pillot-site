@@ -3,7 +3,7 @@
 Send as a Buttondown broadcast (Emails -> New email) to the pillot list,
 after LAUNCH_STATE flips to 'live'. Buttondown wraps this in the Pillot
 template (sage accent, header, unsubscribe footer), so this is just the
-Markdown body. Fill [APP STORE URL] before sending.
+Markdown body. The App Store URL below is already filled in.
 
 ---
 
@@ -15,7 +15,7 @@ Thanks for waiting. Pillot is live on the App Store.
 
 Photograph a prescription bottle and Pillot reads the label, builds your schedule, and reminds you on time. No account, and your meds never reach our servers.
 
-[Get Pillot on the App Store]([APP STORE URL])
+[Get Pillot on the App Store](https://apps.apple.com/us/app/pillot-app/id6788505158)
 
 That's the one email we promised. Thanks for being early.
 
