@@ -133,7 +133,7 @@ const items = [
         body.style.maxHeight = '0px';
         return;
       }
-      // If it's content-sized, pin to a pixel height so it can animate down.
+      // If it’s content-sized, pin to a pixel height so it can animate down.
       if (body.style.maxHeight === 'none' || body.style.maxHeight === '') {
         body.style.maxHeight = `${body.scrollHeight}px`;
         void body.offsetHeight;

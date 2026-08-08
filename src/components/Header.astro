@@ -52,7 +52,7 @@ const links = [
     cta.addEventListener('click', (e) => {
       const section = document.getElementById('notify');
       if (!section) return;
-      // On the homepage, handle the jump ourselves: the browser's own anchor
+      // On the homepage, handle the jump ourselves: the browser’s own anchor
       // navigation resets focus to <body>, undoing the input focus.
       e.preventDefault();
       history.pushState(null, '', '/#notify');
@@ -61,7 +61,7 @@ const links = [
     });
   }
 
-  // Scroll-spy: on the home page, light up whichever section you're reading.
+  // Scroll-spy: on the home page, light up whichever section you’re reading.
   const nav = document.querySelector('header nav');
   if (nav) {
     const spyLinks = Array.from(nav.querySelectorAll<HTMLAnchorElement>('a[data-section]'));
@@ -81,7 +81,7 @@ const links = [
           if (s.el.getBoundingClientRect().top <= threshold) current = s.link;
         }
         // The last section sits too close to the bottom to ever reach the
-        // threshold, so once we've hit the end of the page it's the one showing.
+        // threshold, so once we’ve hit the end of the page it’s the one showing.
         // Guard on the page actually being scrollable: before images load the
         // document is short, and an unguarded check reads as "at the bottom".
         const doc = document.documentElement;

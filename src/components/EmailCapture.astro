@@ -4,7 +4,7 @@ import { EMAIL_FORM_ACTION } from '../config';
 const {
   label = 'Get notified when Pillot launches',
   compact = false,
-  success = "You're on the list. Check your inbox to confirm, and we'll email you with Pillot news.",
+  success = "You’re on the list. Check your inbox to confirm, and we’ll email you with Pillot news.",
 } = Astro.props;
 const uid = `capture-${Math.random().toString(36).slice(2, 8)}`;
 ---
@@ -37,7 +37,7 @@ const uid = `capture-${Math.random().toString(36).slice(2, 8)}`;
       if (!msg || !button) return;
 
       if (!endpoint) {
-        msg.textContent = "Sign-ups aren't open quite yet. Check back soon.";
+        msg.textContent = "Sign-ups aren’t open quite yet. Check back soon.";
         msg.className = 'capture-msg visible';
         return;
       }
@@ -50,7 +50,7 @@ const uid = `capture-${Math.random().toString(36).slice(2, 8)}`;
       button.disabled = true;
       button.textContent = 'One sec…';
       try {
-        // Buttondown's embed endpoint doesn't send CORS headers, so the response
+        // Buttondown’s embed endpoint doesn’t send CORS headers, so the response
         // is opaque and unreadable. Post no-cors and confirm optimistically;
         // Buttondown sends its own confirmation email as the real receipt.
         await fetch(endpoint, {
@@ -59,7 +59,7 @@ const uid = `capture-${Math.random().toString(36).slice(2, 8)}`;
           body: new FormData(form),
         });
         form.hidden = true;
-        msg.textContent = form.dataset.success || "You're on the list. Check your inbox to confirm, and we'll email you with Pillot news.";
+        msg.textContent = form.dataset.success || "You’re on the list. Check your inbox to confirm, and we’ll email you with Pillot news.";
         msg.className = 'capture-msg visible success';
       } catch {
         msg.textContent = "Something went wrong. Try again in a minute.";
