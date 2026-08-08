@@ -4,8 +4,8 @@ import EmailCapture from './EmailCapture.astro';
 <section class="updates" id="updates">
   <div class="container">
     <div class="inner">
+      <p class="eyebrow">Product updates</p>
       <div class="copy">
-        <p class="eyebrow">Product updates</p>
         <h2>Not on iPhone, or outside the US?</h2>
         <p class="lead">
           Pillot is on the App Store for iPhone in the United States. If that’s not you yet,
@@ -29,28 +29,42 @@ import EmailCapture from './EmailCapture.astro';
 
   /* Full container width, like every other band. The reading measure belongs on
      the copy, not the whole section, or the rule and form shrink with it. */
+  /* Full container width, like every other band. The reading measure belongs on
+     the copy, not the whole section, or the rule and form shrink with it.
+     The eyebrow gets its own row so the headline and the form start on the same
+     one and align at the top without a hand-tuned offset. */
   .inner {
     border-top: 1px solid var(--hairline);
     padding-top: 40px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px 48px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 48px;
+    align-items: start;
+  }
+
+  .eyebrow {
+    grid-column: 1 / -1;
   }
 
   .copy {
+    grid-column: 1;
     max-width: 46ch;
   }
 
   .signup {
-    flex-shrink: 0;
+    grid-column: 2;
   }
 
-  /* Once the row wraps, the form sits under the copy, so let it share that edge
-     instead of ending short of it. */
+  /* Stack once the two columns stop fitting, with the form sharing the copy's
+     edge instead of ending short of it. */
   @media (max-width: 760px) {
+    .inner {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 24px;
+    }
+
     .signup {
+      grid-column: 1;
       width: 100%;
     }
   }
